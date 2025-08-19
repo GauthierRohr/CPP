@@ -1,7 +1,3 @@
-# ========================
-# 📁 Makefile - ex01
-# ========================
-
 NAME    = PhoneBook
 CXX     = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
