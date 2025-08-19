@@ -1,0 +1,72 @@
+=======================
+RÉSUMÉ ESSENTIEL MODULES C++ (42)
+=======================
+
+╔════════════════════════════════════════════╗
+║              CHOSES INTERDITES             ║
+╚════════════════════════════════════════════╝
+- printf(), malloc(), calloc(), realloc(), free()
+- <algorithm> et toute la STL avant le Module 08
+- Boost et toute bibliothèque externe
+- using namespace <...>
+- friend
+- Définir des fonctions dans les .hpp (hors templates)
+- Oublier les include guards (#ifndef / #define / #endif)
+- Avoir des fuites mémoire (new sans delete)
+- Compilation sans -Wall -Wextra -Werror -std=c++98
+
+╔════════════════════════════════════════════╗
+║              CHOSES OBLIGATOIRES           ║
+╚════════════════════════════════════════════╝
+- Compilation : c++ -Wall -Wextra -Werror -std=c++98
+- Fichiers : ex00, ex01, ..., ex09
+- Classes nommées en UpperCamelCase
+- Fichiers : MaClasse.hpp / MaClasse.cpp
+- Tous les messages => std::cout << "..." << std::endl;
+- Code propre, lisible, bien indenté
+- Headers indépendants, bien protégés (include guards)
+- À partir du Module 02 : Forme canonique de Coplien (constructeur par défaut, destructeur, constructeur de copie, opérateur d’affectation)
+
+╔════════════════════════════════════════════╗
+║       FRISE DES AUTORISATIONS PAR MODULE   ║
+╚════════════════════════════════════════════╝
+
+     MODULE     |  CLASSES  |   HERITAGE   | FORMES     | STL/ALGO | NEW/DELETE
+----------------|-----------|--------------|------------|----------|------------
+  C++ - ex00    |   ✔️ Base |      ❌       |   ❌       |   ❌      |   ✔️ oui
+  C++ - ex01    |   ✔️ +    |      ❌       |   ❌       |   ❌      |   ✔️ oui
+  C++ - ex02    |   ✔️ ++   |      ❌       | ✔️ Coplien |   ❌      |   ✔️ oui
+  C++ - ex03    |   ✔️      |      ✔️       |   ✔️       |   ❌      |   ✔️
+  C++ - ex04    |   ✔️      |      ✔️       |   ✔️       |   ❌      |   ✔️
+  C++ - ex05    |   ✔️      |      ✔️       |   ✔️       |   ❌      |   ✔️
+  C++ - ex06    |   ✔️      |      ✔️       |   ✔️       |   ❌      |   ✔️
+  C++ - ex07    |   ✔️      |      ✔️       |   ✔️       |   ❌      |   ✔️
+  C++ - ex08    |   ✔️      |      ✔️       |   ✔️       |   ✔️ STL  |   ✔️
+  C++ - ex09    |   ✔️      |      ✔️       |   ✔️       |   ✔️ STL  |   ✔️
+
+╔════════════════════════════════════════════╗
+║                ASTUCES RAPIDES             ║
+╚════════════════════════════════════════════╝
+- Préfixe tes attributs privés avec un underscore (`_val`)
+- Utilise `std::string` au lieu de `char*` sauf si interdit
+- Toujours tester les leaks avec `valgrind`
+- Pas besoin de respecter la Norminette ici, mais code propre
+- Pas de commentaires inutiles, préfère un code auto-explicatif
+- Si une règle n’est pas claire, relis l’exemple de l’exercice
+- Ne jamais rendre un `.hpp` tout seul sans son `.cpp`
+- Utilise les streams C++ (`std::cout`, `std::cin`, etc.)
+
+╔════════════════════════════════════════════╗
+║           FORME CANONIQUE DE COPLIEN       ║
+╚════════════════════════════════════════════╝
+class MaClasse {
+public:
+    MaClasse();                         // Constructeur par défaut
+    MaClasse(const MaClasse& other);   // Constructeur de copie
+    ~MaClasse();                        // Destructeur
+    MaClasse& operator=(const MaClasse& rhs); // Opérateur d'affectation
+};
+
+=======================
+FIN
+=======================

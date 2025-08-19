@@ -1,0 +1,160 @@
+////// Classes, Objets, Attributs d'instance ///////
+
+💡 Imaginons la classe Account
+
+	Account a(100);
+	Account b(50); 
+
+•	a et b sont deux objets différents
+•	Chacun a ses propres données : montant (_amount), nombre de dépôts, etc.
+•	Ces données sont appelées attributs d’instance
+⸻
+
+📦 Attribut d’instance ? C’est quoi ?
+
+Un attribut d’instance = une variable qui appartient à un objet précis
+
+	class Account {
+	private:
+	    int _amount; // ← cet attribut appartient à chaque objet Account
+	};
+
+➡️ Chaque objet (a, b, etc.) a sa propre version de _amount
+⸻
+
+✅ Et maintenant, c’est quoi l’objet courant ?
+
+Quand tu es dans une méthode de la classe, par exemple :
+
+	void Account::makeDeposit(int deposit)
+
+C++ a besoin de savoir :
+« Je suis en train de faire un dépôt… mais sur quel objet ? »
+
+👉 C’est l’objet courant !
+C’est celui qui est en train d’exécuter la méthode.
+
+Et pour y accéder, on utilise le mot-clé this :
+
+	this->_amount += deposit;
+
+🎯 Résumé
+
+Terme					Explication courte
+Objet					Instance concrète d'une classe (Account a;)
+Attribut d'instance		Variable propre à chaque objet (_amount, _nbDeposits, etc.)
+Objet courant			L'objet qui appelle la méthode (a.makeDeposit())
+this					Pointeur vers l'objet courant, utilisé pour accéder à ses données
+
+///////////// Méthodes statiques et méthodes d’instance //////////////
+
+🟩 displayAccountsInfos() → fonction static
+	•	Elle est marquée comme statique (dans le header).
+	•	Cela veut dire qu’elle appartient à la classe, pas à un objet précis.
+	•	👉 Elle n’a donc pas accès à this, car this représente un objet spécifique.
+
+Tu ne peux pas utiliser this dans une fonction static, car il n’y a pas d’objet courant.
+
+C’est pour ça qu’on utilise directement les variables statiques :
+	_nbAccounts, _totalAmount, etc.
+➡️ Elles sont partagées par toute la classe (communes à tous les objets).
+_____
+🟦 displayStatus() → fonction d’instance (non static)
+	•	Cette méthode s’applique à un seul objet à la fois
+	•	Ici, tu veux afficher les infos de CE compte-là, pas de tous les comptes
+
+this est automatiquement disponible et pointe vers l’objet courant
+
+Donc tu peux faire :
+	this->_amount 
+ou simplement _amount (le compilateur comprend)
+
+
+///////// BASES FONCTIONS /////////
+
+✅ std :
+	• Abréviation de Standard
+	• C’est un namespace qui contient toutes les fonctionnalités standard de C++
+	(fonctions, classes, objets, etc.)
+	• #include <iostream>
+
+✅ cout
+	• Signifie “character output”
+	• C’est un objet (une instance) de la classe std::ostream
+	• Il sert à afficher des choses dans le terminal
+	• L’équivalent C de printf, mais version orientée objet
+	• std::cout << "Hello"; -> Affiche "Hello" dans le terminal, via le flux de sortie standard.
+
+🔁 std::endl
+✅ Que signifie endl ?
+	•	Abréviation de “end line” (fin de ligne)
+	•	C’est une fonction qui :
+		1.	Ajoute un \n (retour à la ligne)
+		2.	Flush(=laver, rincer) le buffer de sortie
+
+❓ Flush ?
+Quand je fais :
+	std::cout << "Texte";
+C++ peut mettre le texte de côté en mémoire (buffer) avant de vraiment l’écrire dans le terminal.
+
+Mais quand je fais :
+	std::cout << std::endl;
+➡️ il force immédiatement l’affichage avec un flush, en plus du saut de ligne.
+
+
+✅ cin
+	• Signifie "character input"
+	• C’est un objet de la classe std::istream
+	• Sert à lire des données depuis le clavier (entrée standard)
+	• L’équivalent de scanf en C
+	• Exemple :
+		std::string name;
+		std::cin >> name; // lit un mot entré par l'utilisateur
+
+	⚠️ std::cin lit jusqu’à un espace ou un saut de ligne
+
+✅ std::cin.clear()
+	• Fonction membre de `std::istream` (donc utilisée avec `std::cin`)
+	• Sert à **réinitialiser les flags d’erreur** du flux d’entrée
+	• Très souvent utilisée après une **entrée invalide**
+	• Par défaut, une erreur (ex : lire du texte alors qu'on attendait un int) met le flux en état "d’échec" (failbit)
+	• Tant que ce flag n’est pas effacé avec `.clear()`, le flux refuse de lire de nouvelles données
+	• Nécessite : `#include <iostream>`
+
+/////// ADVANCED TIPS ////////
+
+✅ cerr
+	• Signifie "character error"
+	• C’est un objet de la classe std::ostream (comme cout)
+	• Sert à afficher des messages d’erreur
+	• S’affiche aussi dans le terminal, mais sur le **flux d’erreur** (stderr)
+	• Utile pour séparer les erreurs de la sortie standard
+	• Exemple :
+		std::cerr << "Erreur : fichier introuvable" << std::endl;
+
+✅ stringstream (nécessite #include <sstream>)
+	• C’est une classe qui permet d’utiliser une string comme un flux (comme cin/cout)
+	• Très utile pour convertir entre types, ou parser des strings
+	• Il existe trois variantes :
+		- std::stringstream (lecture + écriture)
+		- std::istringstream (lecture uniquement)
+		- std::ostringstream (écriture uniquement)
+
+	• Exemple simple d’extraction :
+		#include <sstream>
+		std::string line = "42 hello";
+		std::stringstream ss(line);
+		int number;
+		std::string word;
+		ss >> number >> word;
+		// number = 42, word = "hello"
+
+	• Exemple pour convertir int → string :
+		std::ostringstream oss;
+		oss << 123;
+		std::string s = oss.str(); // "123"
+
+	• Exemple pour convertir string → int :
+		std::istringstream iss("456");
+		int x;
+		iss >> x; // x = 456

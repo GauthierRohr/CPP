@@ -1,0 +1,6 @@
+Faire en sorte que les numeros ne puissent pas comporter :
+- autre chose que des chiffres
+- SAUF : tolérer le + s'il est en 1ere position
+-> Sinon envoyer un message d'erreur et redemander de saisir un numero valide
+
+Faire en sorte que s'il n'y a que des espaces blanc, l'entree ne soit pas valide.
