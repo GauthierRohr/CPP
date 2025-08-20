@@ -11,9 +11,9 @@ private:
 
 public:
     PhoneBook();
-    void addContact();
+    bool addContact();
     void searchContact() const;
-    void modifyContact();
+    //void modifyContact();
 };
 
 #endif
