@@ -15,7 +15,6 @@ int main()
             std::cout << std::endl;
             break;
         }
-
         if (command == "ADD")
         {
             if (!pb.addContact())

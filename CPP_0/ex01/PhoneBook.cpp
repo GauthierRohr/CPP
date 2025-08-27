@@ -80,8 +80,6 @@ void PhoneBook::searchContact() const
 
 	// clean \n si index valide
 	std::cin.ignore();
-
-	// Si tout est ok
 	_contacts[index - 1].displayContactFull();
 }
 

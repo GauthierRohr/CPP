@@ -42,8 +42,7 @@ static bool isEmptyOrSpaces(const std::string& str)
 	return true;
 }
 
-// Retourne "EOF" si Ctrl+D est détecté
-// Retourne "" si Ctrl+D est détecté
+// Retourne si Ctrl+D est détecté
 static std::string getValidInput(const std::string& prompt, bool isPhoneNumber) 
 {
     std::string input;
