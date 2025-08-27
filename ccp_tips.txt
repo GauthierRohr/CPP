@@ -69,6 +69,19 @@ Donc tu peux faire :
 	this->_amount 
 ou simplement _amount (le compilateur comprend)
 
+///////// Particularites  /////////
+Pourquoi pas empty(str) ou length(str) ?
+ -> en C++, les chaînes sont des objets (std::string).
+ Les fonctions associées à ces objets s’appellent avec la notation point (objet.methode()).
+
+std::isspace(str[i])
+ Ici str[i] est un char, pas un objet.
+ "char" est un type primitif, il n’a pas de méthodes associées.
+ Donc on ne peut pas écrire str[i].isspace().
+ À la place, on utilise des fonctions libres (dans <cctype>) qui prennent un char en argument :
+ std::isspace(c) → retourne vrai si c est un espace, tabulation, saut de ligne, etc.
+ std::isdigit(c) → vrai si c est un chiffre.
+ std::isalpha(c)
 
 ///////// BASES FONCTIONS /////////
 
@@ -121,7 +134,32 @@ Mais quand je fais :
 	• Tant que ce flag n’est pas effacé avec `.clear()`, le flux refuse de lire de nouvelles données
 	• Nécessite : `#include <iostream>`
 
+✅ std::getline(...)
+	• ex : std::getline(std::cin, command);
+	• Fonction qui lit une ligne entière depuis un flux (std::cin) et la stocke dans une chaîne (command).
+	• Contrairement à std::cin >> command; qui s’arrête au premier espace,
+	  std::getline prend tout ce que tu as écrit jusqu’au retour à la ligne (Enter).
+
 /////// ADVANCED TIPS ////////
+
+✅ std::cin.ignore(n, c)
+	• Ignore jusqu’à n caractères dans le flux ou jusqu’à rencontrer le caractère c (inclus).
+	• Souvent, c est '\n', donc on ignore tout jusqu’à la fin de la ligne en cours.
+
+✅std::numeric_limits<std::streamsize>::max()
+
+	• std::numeric_limits : template qui permet d’obtenir les limites des types numériques.
+	• std::streamsize : type signé utilisé pour représenter la taille d’un flux.
+
+	→ std::numeric_limits<std::streamsize>::max() retourne la valeur maximale
+		possible pour un std::streamsize (c’est énorme, genre 9.22e18 sur 64 bits)
+
+-----------------------
+DONC POUR : std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n')
+
+==> On dit à ignore :
+« Ignore autant de caractères que possible, mais arrête-toi dès que tu croises un '\n'. »
+-----------------------
 
 ✅ cerr
 	• Signifie "character error"
