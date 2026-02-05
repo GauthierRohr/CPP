@@ -8,26 +8,19 @@
 // _oldest = index du plus vieux contact (celui qu'on remplacera)
 PhoneBook::PhoneBook() : _count(0), _oldest(0) {}
 
-// Ajoute un nouveau contact dans le répertoire
-// Si incomplet → on ne l'ajoute pas
-// Sinon        → on le met dans le tableau circulaire
-void PhoneBook::addContact()
+bool PhoneBook::addContact()
 {
-	Contact c;
-	c.setContact();
+    Contact c;
+    if (!c.setContact()) 
+        return false;
 
-	// Si isValide retourne false, on rentre dans le if
-	if (!c.isValid())
-	{
-		std::cout << "⚠️ All fields must be filled. Contact not saved.\n";
-		return;
-	}
-
-	_contacts[_oldest] = c;
-	_oldest = (_oldest + 1) % 8;
-	if (_count < 8)
-		_count++;
+    _contacts[_oldest] = c;
+    _oldest = (_oldest + 1) % 8;
+    if (_count < 8)
+        _count++;
+    return true;
 }
+
 
 static void displayHeader()
 {
@@ -87,61 +80,59 @@ void PhoneBook::searchContact() const
 
 	// clean \n si index valide
 	std::cin.ignore();
-
-	// Si tout est ok :
 	_contacts[index - 1].displayContactFull();
 }
 
 // Permet de modifier un contact existant
-void PhoneBook::modifyContact()
-{
-    if (_count == 0)
-    {
-        std::cout << "No contacts. Please, ADD at least 1 contact.\n";
-        return;
-    }
+// void PhoneBook::modifyContact()
+// {
+//     if (_count == 0)
+//     {
+//         std::cout << "No contacts. Please, ADD at least 1 contact.\n";
+//         return;
+//     }
 
-	std::cout << "\nActual contact list :\n";
-	displayHeader();
-	for (int i = 0; i < _count; ++i)
-	{
-		_contacts[i].displayContactShort(i + 1);
-	}
+// 	std::cout << "\nActual contact list :\n";
+// 	displayHeader();
+// 	for (int i = 0; i < _count; ++i)
+// 	{
+// 		_contacts[i].displayContactShort(i + 1);
+// 	}
 
-    std::cout << "\nEnter the index of the contact to modify: ";
-    int index;
-    if (!(std::cin >> index) || index < 1 || index > _count)
-    {
-        std::cout << "Invalid index.\n";
-        std::cin.clear();
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        return;
-    }
+//     std::cout << "\nEnter the index of the contact to modify: ";
+//     int index;
+//     if (!(std::cin >> index) || index < 1 || index > _count)
+//     {
+//         std::cout << "Invalid index.\n";
+//         std::cin.clear();
+//         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//         return;
+//     }
 
-    std::cin.ignore();
+//     std::cin.ignore();
     
-	Contact& oldContact = _contacts[index - 1];
-    std::cout << "\nOld contact info:\n";
-    oldContact.displayContactFull();
+// 	Contact& oldContact = _contacts[index - 1];
+//     std::cout << "\nOld contact info:\n";
+//     oldContact.displayContactFull();
 
-    Contact newContact;
-    std::cout << "\nEnter new contact information:\n";
-    newContact.setContact();
+//     Contact newContact;
+//     std::cout << "\nEnter new contact information:\n";
+//     newContact.setContact();
 
-    if (!newContact.isValid())
-    {
-        std::cout << "⚠️ All fields must be filled. Modification cancelled.\n";
-        return;
-    }
+//     if (!newContact.isValid())
+//     {
+//         std::cout << "⚠️ All fields must be filled. Modification cancelled.\n";
+//         return;
+//     }
 
-    std::cout << "\nOld summary:\n";
-	displayHeader();
-    oldContact.displayContactShort(index);
+//     std::cout << "\nOld summary:\n";
+// 	displayHeader();
+//     oldContact.displayContactShort(index);
 
-    std::cout << "\nNew summary:\n";
-	displayHeader();
-    newContact.displayContactShort(index);
-	std::cout << "\n";
+//     std::cout << "\nNew summary:\n";
+// 	displayHeader();
+//     newContact.displayContactShort(index);
+// 	std::cout << "\n";
 
-    _contacts[index - 1] = newContact;
-}
+//     _contacts[index - 1] = newContact;
+// }

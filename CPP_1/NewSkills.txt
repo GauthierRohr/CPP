@@ -1,0 +1,4 @@
+ex05:
+
+Associer une string ("DEBUG", "INFO", etc.) à une fonction membre
+-> utiliser des pointeurs vers fonctions membres

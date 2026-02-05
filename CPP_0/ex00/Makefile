@@ -10,7 +10,7 @@ all : $(NAME)
 
 #### 2ème étape ####
 # Crée le binaire à partir des .o = l'exécutable
-# Tu prends tous les .o et tu les LINKES ensemble → ça donne le binaire exécutable.
+# Tu prends tous les .o et tu les LINKES ensemble → ça donne le binaire exécutable
 $(NAME) : $(OBJ)
 	$(COMP) $(FLAGS) -o $(NAME) $(OBJ)
 

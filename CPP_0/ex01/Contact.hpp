@@ -12,10 +12,9 @@ private:
     std::string _darkestSecret;
 
 public:
-    void setContact();
+    bool setContact();
     void displayContactShort(int index) const;
     void displayContactFull() const;
-    bool isValid() const;
 };
 
 #endif

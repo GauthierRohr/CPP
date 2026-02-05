@@ -1,23 +1,27 @@
 #include <iostream>     // pour std::cout, std::cin
 #include <string>       // pour std::string
-#include "PhoneBook.hpp" // pour la classe PhoneBook
+#include "PhoneBook.hpp"
 
 int main()
 {
     PhoneBook pb;
     std::string command;
 
-    while (1)
+    while (true)
     {
-        std::cout << "Enter a command (ADD, SEARCH, MODIFY, EXIT): ";
-        std::getline(std::cin, command);
-
+        std::cout << "Enter a command (ADD, SEARCH, EXIT): ";
+        if (!std::getline(std::cin, command))
+        {
+            std::cout << std::endl;
+            break;
+        }
         if (command == "ADD")
-            pb.addContact();
+        {
+            if (!pb.addContact())
+                break;
+        }
         else if (command == "SEARCH")
             pb.searchContact();
-        else if (command == "MODIFY")
-            pb.modifyContact();
         else if (command == "EXIT")
             break;
     }
