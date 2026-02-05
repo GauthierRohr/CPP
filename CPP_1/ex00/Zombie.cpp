@@ -20,10 +20,9 @@
 //	Zombie::Zombie(std::string name) {
 //    _name = name;
 //	}
-// En plus propre et rapide. Format obligatoire pour certains types (const, références…)
 //
 // “Quand quelqu’un crée un zombie en passant un nom, je stocke ce nom dans l’attribut privé _name de l’objet.”
-// Et cet attribut _name est unique à chaque zombie, car il est stocké dans l’objet lui-même.
+// _name est unique à chaque zombie, car il est stocké dans l’objet lui-même.
 //
 Zombie::Zombie(std::string name) : _name(name) {}
 
