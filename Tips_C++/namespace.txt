@@ -1,0 +1,13 @@
+using std::cout;
+
+-> permet d'utiliser :
+	cout << "Hey";
+
+Au lieu de :
+	std::cout << "Hey";
+
+idem pour std::string, etc.
+
+On peut sinon faire un :
+	using namespace std
+

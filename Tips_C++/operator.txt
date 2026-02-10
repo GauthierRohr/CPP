@@ -1,0 +1,14 @@
+operator= -> qu’est-ce que c’est ?
+
+En C++, operator= est une fonction spéciale qui redéfinit le comportement de l’opérateur = pour les objets.
+
+	Exemple :
+	c = b;
+
+Si c et b sont des int → C++ sait faire la copie naturellement.
+Si c et b sont des Fixed → C++ ne sait pas exactement comment copier l’objet.
+
+	➡ On écrit donc :
+	Fixed &Fixed::operator=(const Fixed &copy);
+
+pour dire au compilateur : “voici comment copier un Fixed dans un autre Fixed”.

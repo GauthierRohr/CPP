@@ -1,0 +1,16 @@
+-- TYPEDEF --
+
+Permet de crére un alias pour une déclaration longue et/ou coûteuse en lignes de code.
+
+typedef std::vector<std::pair<std::string, int>> pairlist_t
+
+int main ()
+{
+	pairlist_t pairlist_1; // On a crée une entité facilement sans retaper "std::vector<std::pair<std::string, int>>"
+}
+
+-- USING --
+
+using str_t = std::string;
+
+=> alias facile, marche avec plus de teamplates que typedef

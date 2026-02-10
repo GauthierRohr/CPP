@@ -1,0 +1,92 @@
+ORTHODOX CANONICAL FORM CLASS
+
+En C++, une classe en Orthodox Canonical Form (souvent abrégé OCCF)
+désigne une classe qui implémente les fonctions membres “spéciales” de base
+pour gérer correctement la création, la copie, l’affectation et la destruction des objets.
+
+C’est historiquement lié à la Rule of Three (la règle des trois) et à la manière “canonique” de définir un type valeur.  ￼
+
+📌 Ce que doit contenir une classe en Orthodox Canonical Form
+
+Une classe en forme canonique orthodoxe doit définir explicitement au minimum :  ￼
+	1.	Constructeur par défaut
+	2.	Constructeur de copie
+	3.	Opérateur d’affectation (operator=)
+	4.	Destructeur
+
+Ces membres assurent que l’objet peut être créé, copié, assigné et détruit de manière sûre et prévisible.
+
+public:
+    Fixed();
+    Fixed(const Fixed& copy);
+    ~Fixed();
+    Fixed &operator=(const Fixed& copy);
+
+1 - Pourquoi existe-t-il un constructeur de copie ?
+
+Un constructeur de copie sert à créer un nouvel objet comme copie d’un objet déjà existant.
+👉 C’est utilisé au moment de la création de l’objet, pas après.  ￼
+
+Exemples de situations où il est appelé :
+	•	Fixed b = a; → on crée b en copiant a.
+	•	Une fonction retourne un objet par valeur.
+	•	Un objet est passé par valeur à une fonction.
+Dans chacun de ces cas, l’objet cible n’existait pas encore, donc il doit être initialisé.  ￼
+
+Sans constructeur de copie, le compilateur en génère un par défaut qui fait une copie membre à membre (shallow copy),
+ce qui peut être inapproprié si ta classe gère des ressources (ex. mémoire dynamique).
+
+2 - Pourquoi existe-t-il un opérateur d’affectation (operator=) ?
+
+L’opérateur d’affectation sert à copier les valeurs d’un objet vers un autre qui existe déjà.
+👉 On l’utilise quand l’objet de gauche a déjà été créé.  ￼
+
+Exemple concret :
+
+Fixed a;     // créé via constructeur par défaut
+Fixed b;     // autre objet déjà créé
+b = a;       // ici, on **affecte** a dans b → opérateur d’affectation
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//  Mais pourquoi s'embêter à faire :															//
+//  Fixed c;                         															//
+//  c = b;																						//
+//																							 	//
+//  Alors qu'on aurait pu faire Fixed c(b) ou Fixed c(a) et du coup à quoi sert l'opérateur ??? //
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+➡ Parce que la vie d’un objet se déroule en 2 phases différentes :
+	1.	sa CRÉATION
+	2.	sa MODIFICATION plus tard.
+
+1. Les deux situations n’ont rien à voir
+
+	A. À la création de l’objet
+	Fixed c(b);
+
+	👉 l’objet c N’EXISTE PAS encore
+	➡ on le construit directement à partir de b
+	→ constructeur de copie.
+
+	B. Après la création
+	Fixed c;
+	c = b;
+
+	👉 c EXISTE DÉJÀ
+	➡ on veut juste REMPLACER son contenu
+	→ opérateur d’affectation.
+
+2. Exemple réel dans un programme
+
+	Dans un vrai code tu fais presque jamais :
+	Fixed c(b);
+
+	Tu fais plutôt :
+	Fixed c;          // créé vide au début
+
+	// plus tard dans le programme :
+	if (condition)
+		c = b;
+	else
+		c = a;
+	➡ là tu es OBLIGÉ d’avoir un operator=

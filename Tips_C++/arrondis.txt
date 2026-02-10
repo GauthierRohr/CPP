@@ -1,0 +1,16 @@
+Par défaut, std::cout utilise une précision d’environ 6 chiffres significatifs pour les floats
+
+1234.4321 × 256 = 315830.8096
+round → 315831		// valeur stockée
+
+Ensuite, pour toFloat() :
+
+_value / 256 = 315831 / 256 ≈ 1234.4296875
+
+1234.4296875 → affiché ≈ 1234.43
+
+Si je voulais arrondir à x décimales, il faudrait utiliser std::fixed et std::setprecision(x) :
+
+#include <iomanip>
+
+std::cout << std::fixed << std::setprecision(x) << a << std::endl;
