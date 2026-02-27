@@ -1,19 +1,26 @@
 #include "ScavTrap.hpp"
 
-// C'est comme ça qu'on fait pour faire hériter de ClapTrap
-ScavTrap::ScavTrap(const std::string& name) : ClapTrap(name)
+ScavTrap::ScavTrap() : ClapTrap()
 {
-	hitPoints = 100;
-	energyPoints = 50;
-	attackDamage = 20;
+	_hitPoints = 100;
+	_energyPoints = 50;
+	_attackDamage = 20;
 
-	std::cout << "ScavTrap " << name << " created!" << std::endl;
+	std::cout << "ScavTrap default constructor called" << std::endl;
+}
+
+ScavTrap::ScavTrap(const std::string& _name) : ClapTrap(_name)
+{
+	_hitPoints = 100;
+	_energyPoints = 50;
+	_attackDamage = 20;
+
+	std::cout << "ScavTrap " << _name << " created!" << std::endl;
 }
 
 ScavTrap::ScavTrap(const ScavTrap& other) : ClapTrap(other)
 {
 	std::cout << "ScavTrap copy constructor called" << std::endl;
-	*this = other;
 }
 
 ScavTrap& ScavTrap::operator=(const ScavTrap& other)
@@ -28,33 +35,33 @@ ScavTrap& ScavTrap::operator=(const ScavTrap& other)
 
 ScavTrap::~ScavTrap()
 {
-	std::cout << "ScavTrap " << name << " destroyed!" << std::endl;
+	std::cout << "ScavTrap " << _name << " destroyed!" << std::endl;
 }
 
 void ScavTrap::attack(const std::string& target)
 {
-	if (hitPoints <= 0)
+	if (_hitPoints == 0)
 	{
-		std::cout << "ScavTrap is dead and can't attack!" << std::endl;
+		std::cout << "ScavTrap " << _name << " is dead and can't attack!" << std::endl;
 		return;
 	}
-	if (energyPoints <= 0)
+	if (_energyPoints == 0)
 	{
-		std::cout << "ScavTrap has no energy left and can't attack!" << std::endl;
+		std::cout << "ScavTrap " << _name << " has no energy left and can't attack!" << std::endl;
 		return;
 	}
 
-	energyPoints--;
+	_energyPoints--;
 
-	std::cout << "ScavTrap " << name
+	std::cout << "ScavTrap " << _name
 			  << " violently attacks " << target
-			  << ", causing " << attackDamage
+			  << ", causing " << _attackDamage
 			  << " points of damage!" << std::endl;
 }
 
 void ScavTrap::guardGate()
 {
 	std::cout 
-	<< "ScavTrap " << name
+	<< "ScavTrap " << _name
 	<< " is now in Gate keeper mode." << std::endl;
 }
