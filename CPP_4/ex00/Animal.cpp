@@ -5,10 +5,22 @@ Animal::Animal() : type("Animal")
 	std::cout << "Animal default constructor called" << std::endl;
 }
 
-Animal::Animal(const Animal& other)
+// Vaut mieux mettre type(other.type) en haut que dans la boucle (*this = other)
+// Ca evite des pb avec par exemple si on avait :
+//		class Animal
+//		 {
+//		     const std::string type; // const !!!!
+//		 };
+//
+// IMPOSSIBLE -> peut pas assigner un const après initialisation
+//			Animal::Animal(const Animal& other)
+//			{
+//		 	*this = other; // ERREUR DE COMPILATION
+// 			}
+//
+Animal::Animal(const Animal& other) : type(other.type)
 {
-	std::cout << "Animal copy constructor called" << std::endl;
-	*this = other;
+    std::cout << "Animal copy constructor called" << std::endl;
 }
 
 Animal& Animal::operator=(const Animal& other)
@@ -33,5 +45,5 @@ std::string Animal::getType() const
 
 void Animal::makeSound() const
 {
-	std::cout << "Animal makes a weird generic noise" << std::endl;
+	std::cout << "Animal generic sound : miawouf" << std::endl;
 }

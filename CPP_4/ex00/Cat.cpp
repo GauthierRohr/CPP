@@ -28,5 +28,5 @@ Cat::~Cat()
 
 void Cat::makeSound() const
 {
-	std::cout << "MIAOU 🐱" << std::endl;
+	std::cout << "MIAOUUUUUUUUUU" << std::endl;
 }
