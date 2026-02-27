@@ -5,10 +5,13 @@ int main()
 {
 	std::cout << "TEST LA BASEEE" << std::endl;
 
-	const Animal* jeSuisUnChien = new Dog();
+	const Animal* premierDuNom = new Dog();
 	const Animal* jeSuisUnChat = new Cat();
 
-	delete jeSuisUnChien;
+	premierDuNom->makeSound();
+	jeSuisUnChat->makeSound();
+
+	delete premierDuNom;
 	delete jeSuisUnChat;
 
 	std::cout << std::endl;
@@ -32,7 +35,6 @@ int main()
 
 	Dog dog1;
 	dog1.setIdea(0, "J'aime les os wouf");
-	dog1.setIdea(1, "Je veux dormir wouf");
 
 	Dog dog2 = dog1;
 
@@ -47,6 +49,8 @@ int main()
 	std::cout << "dog2 idea: " << dog2.getIdea(0) << std::endl;
 
 	std::cout << std::endl;
+	// const Animal* a = new Animal(); // ERREUR COMPIL -> abstraite
+
 	std::cout << "THX FOR WATCHING" << std::endl;
 	std::cout << "HIT THE LIKE AND SUBSCRIBE BUTTON" << std::endl;
 

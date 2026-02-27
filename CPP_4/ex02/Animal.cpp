@@ -43,7 +43,8 @@ std::string Animal::getType() const
 	return type;
 }
 
-void Animal::makeSound() const
-{
-	std::cout << "Animal generic sound : miawouf" << std::endl;
-}
+// Faut juste delete ca pour donner du pur virtuel :
+// void Animal::makeSound() const
+// {
+// 	std::cout << "Animal generic sound : miawouf" << std::endl;
+// }
